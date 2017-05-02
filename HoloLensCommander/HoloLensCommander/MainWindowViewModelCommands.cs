@@ -558,6 +558,14 @@ namespace HoloLensCommander
             }
         }
 
+        public ICommand UninstallAllAppsCommand
+        { get; private set; }
+
+        private void UninstallAllApps()
+        {
+            
+        }
+
         /// <summary>
         /// Command indicating that the select all/none buttons should use the all devices filter.
         /// </summary>

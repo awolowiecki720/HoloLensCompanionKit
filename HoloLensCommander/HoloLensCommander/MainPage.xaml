@@ -160,12 +160,12 @@
                         x:Name="uninstallAllApps" 
                         Content="Uninstall All"
                         ToolTipService.ToolTip="Uninstalls all apps on the selected devices"
-                        Command="{Binding UninstallAppCommand}"
+                        Command="{Binding UninstallAllAppsCommand}"
                         IsEnabled="{Binding Path=HaveRegisteredDevices}"
                         HorizontalAlignment="Stretch" VerticalAlignment="Top" 
                         FontSize="20"
-                        Width="122" Height="50"
-                        Canvas.Left="79" Canvas.Top="235"/>
+                        Width="142" Height="50"
+                        Canvas.Left="72" Canvas.Top="235"/>
                 </Canvas>
 
                 <Canvas
@@ -262,7 +262,7 @@
         </ScrollViewer>
         <!-- Column 1 controls -->
         <StackPanel Grid.Column="1" Grid.Row="0"
-            Background="White">
+            Background="White" Margin="0,-10,0,10">
             <Canvas
                 HorizontalAlignment="Stretch"
                 Height="40">
