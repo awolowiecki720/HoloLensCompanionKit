@@ -521,7 +521,6 @@ namespace HoloLensCommander
                 catch (Exception e)
                 {
                     this.StatusMessage = string.Format("Failed to uninstall all apps", e.Message);
-                    throw;
                 }
             }
         }
