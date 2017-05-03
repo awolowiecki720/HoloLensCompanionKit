@@ -563,7 +563,10 @@ namespace HoloLensCommander
 
         private void UninstallAllApps()
         {
-            
+            foreach (DeviceMonitorControl monitor in this.GetCopyOfRegisteredDevices())
+            {
+                Task t = monitor.UninstallAllAppsAsync();
+            }
         }
 
         /// <summary>

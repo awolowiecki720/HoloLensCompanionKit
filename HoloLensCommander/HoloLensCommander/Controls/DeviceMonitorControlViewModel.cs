@@ -15,6 +15,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Microsoft.Tools.WindowsDevicePortal;
 using static Microsoft.Tools.WindowsDevicePortal.DevicePortal;
+using System.Linq;
 
 namespace HoloLensCommander
 {
@@ -504,6 +505,23 @@ namespace HoloLensCommander
                         "Failed to uninstall {0} - {1}",
                         appName,
                         e.Message);
+                }
+            }
+        }
+
+        internal async Task UninstallAllAppsAsync()
+        {
+            if (this.IsConnected && this.IsSelected)
+            {
+                try
+                {
+                    AppPackages installedApps = await this.deviceMonitor.GetInstalledApplicationsAsync();
+                    await Task.WhenAll(installedApps.Packages.Select(p => this.deviceMonitor.UninstallApplicationAsync(p.FullName)));
+                }
+                catch (Exception e)
+                {
+                    this.StatusMessage = string.Format("Failed to uninstall all apps", e.Message);
+                    throw;
                 }
             }
         }

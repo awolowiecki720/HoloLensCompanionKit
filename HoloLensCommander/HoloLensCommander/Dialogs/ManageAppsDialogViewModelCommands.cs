@@ -145,7 +145,8 @@ namespace HoloLensCommander
 
         private async Task UninstallAllAppsAsync()
         {
-            
+            await this.deviceMonitorControl.UninstallAllAppsAsync();
+            await this.RefreshInstalledAppsAsync();
         }
 
         /// <summary>

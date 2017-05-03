@@ -269,5 +269,10 @@ namespace HoloLensCommander
         {
             await this.ViewModel.UninstallAppAsync(appName);
         }
+
+        internal async Task UninstallAllAppsAsync()
+        {
+            await this.ViewModel.UninstallAllAppsAsync();
+        }
     }
 }
