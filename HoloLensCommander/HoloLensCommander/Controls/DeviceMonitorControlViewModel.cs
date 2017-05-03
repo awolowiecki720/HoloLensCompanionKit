@@ -15,6 +15,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Microsoft.Tools.WindowsDevicePortal;
 using static Microsoft.Tools.WindowsDevicePortal.DevicePortal;
+using System.Linq;
 
 namespace HoloLensCommander
 {
@@ -115,7 +116,7 @@ namespace HoloLensCommander
             GC.SuppressFinalize(this);
         }
 
-        
+
         /// <summary>
         /// Closes all applications running on this device.
         /// </summary>
@@ -128,7 +129,7 @@ namespace HoloLensCommander
                 {
                     await this.deviceMonitor.TerminateAllApplicationsAsync();
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     this.StatusMessage = string.Format(
                         "Failed to close one or more applications - {0}",
@@ -158,7 +159,7 @@ namespace HoloLensCommander
                 {
                 }
             }
-            
+
             return appNames;
         }
 
@@ -180,7 +181,7 @@ namespace HoloLensCommander
                 try
                 {
                     MrcFileList fileList = await this.deviceMonitor.GetMixedRealityFileListAsync();
-                    
+
                     if (fileList.Files.Count != 0)
                     {
                         // Create the folder for this device's files.
@@ -214,7 +215,7 @@ namespace HoloLensCommander
                                     await this.deviceMonitor.DeleteMixedRealityFile(fileInfo.FileName);
                                 }
                             }
-                            catch(Exception e)
+                            catch (Exception e)
                             {
                                 this.StatusMessage = string.Format(
                                     "Failed to download {0} - {1}",
@@ -224,15 +225,15 @@ namespace HoloLensCommander
                         }
                     }
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     this.StatusMessage = string.Format(
                         "Failed to get mixed reality files - {0}",
                         e.Message);
                 }
             }
-            
-            return folderName;   
+
+            return folderName;
         }
 
         /// <summary>
@@ -250,7 +251,7 @@ namespace HoloLensCommander
 
                     this.deviceMonitorControl.NotifyAppInstall();
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     this.StatusMessage = string.Format(
                         "Failed to install {0} - {1}",
@@ -284,7 +285,7 @@ namespace HoloLensCommander
                         {
                             appId = packageInfo.AppId;
                             packageName = packageInfo.FullName;
-                            break;    
+                            break;
                         }
                     }
 
@@ -292,7 +293,7 @@ namespace HoloLensCommander
                         !string.IsNullOrWhiteSpace(packageName))
                     {
                         processId = await this.deviceMonitor.LaunchApplicationAsync(
-                            appId, 
+                            appId,
                             packageName);
                     }
 
@@ -305,7 +306,7 @@ namespace HoloLensCommander
                         });
                     t.Start();
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     this.StatusMessage = string.Format(
                         "Failed to launch {0} - {1}",
@@ -335,7 +336,7 @@ namespace HoloLensCommander
             ContentDialog dialog = new ManageAppsDialog(this.deviceMonitor, this.deviceMonitorControl);
             await dialog.ShowAsync();
         }
-        
+
         /// <summary>
         /// Displays the mixed reality view dialog.
         /// </summary>
@@ -372,9 +373,9 @@ namespace HoloLensCommander
             float.TryParse(this.Ipd, out userInfo.Ipd);
 
             ContentDialog dialog = new SetIpdDialog(
-                this.deviceMonitor.Address, 
+                this.deviceMonitor.Address,
                 userInfo);
-            ContentDialogResult result = await dialog.ShowAsync().AsTask<ContentDialogResult>();;
+            ContentDialogResult result = await dialog.ShowAsync().AsTask<ContentDialogResult>(); ;
 
             // Primary button == "Set"
             if (result == ContentDialogResult.Primary)
@@ -459,7 +460,7 @@ namespace HoloLensCommander
             ContentDialog dialog = new TagDeviceDialog(
                 this.deviceMonitor.Address,
                 tagInfo);
-            ContentDialogResult result = await dialog.ShowAsync().AsTask<ContentDialogResult>();;
+            ContentDialogResult result = await dialog.ShowAsync().AsTask<ContentDialogResult>(); ;
 
             // Primary button == "Ok"
             if (result == ContentDialogResult.Primary)
@@ -484,7 +485,7 @@ namespace HoloLensCommander
                     string packageName = Utilities.GetPackageNameFromAppName(
                         appName,
                         installedApps);
-                
+
                     if (packageName == null)
                     {
                         throw new Exception(
@@ -508,13 +509,29 @@ namespace HoloLensCommander
             }
         }
 
+        internal async Task UninstallAllAppsAsync()
+        {
+            if (this.IsConnected && this.IsSelected)
+            {
+                try
+                {
+                    AppPackages installedApps = await this.deviceMonitor.GetInstalledApplicationsAsync();
+                    await Task.WhenAll(installedApps.Packages.Select(p => this.deviceMonitor.UninstallApplicationAsync(p.FullName)));
+                }
+                catch (Exception e)
+                {
+                    this.StatusMessage = string.Format("Failed to uninstall all apps", e.Message);
+                }
+            }
+        }
+
         /// <summary>
         /// Handles the ApplicationInstallStatus event.
         /// </summary>
         /// <param name="sender">The object which sent this event.</param>
         /// <param name="args">Event arguments.</param>
         private void DeviceMonitor_AppInstallStatus(
-            DeviceMonitor sender, 
+            DeviceMonitor sender,
             ApplicationInstallStatusEventArgs args)
         {
             this.StatusMessage = args.Message;
@@ -604,7 +621,7 @@ namespace HoloLensCommander
         private void NotifyPropertyChanged(string propertyName)
         {
             this.PropertyChanged?.Invoke(
-                this, 
+                this,
                 new PropertyChangedEventArgs(propertyName));
         }
 
@@ -729,13 +746,13 @@ namespace HoloLensCommander
                     runningProcesses = await this.deviceMonitor.GetRunningProcessesAsync();
                     processIsRunning = runningProcesses.Contains(processId);
                 }
-                while(processIsRunning);
+                while (processIsRunning);
 
-                    MarshalStatusMessageUpdate(string.Format(
-                        "{0} has exited",
-                        appName));
+                MarshalStatusMessageUpdate(string.Format(
+                    "{0} has exited",
+                    appName));
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 MarshalStatusMessageUpdate(string.Format(
                     "Cannot determine the execution state of {0} - {1}",
