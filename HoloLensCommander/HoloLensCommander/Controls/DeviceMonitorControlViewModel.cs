@@ -482,8 +482,6 @@ namespace HoloLensCommander
                 {
                     AppPackages installedApps = await this.deviceMonitor.GetInstalledApplicationsAsync();
 
-                    //PackageInfo packageInfo;
-
                     string packageName = Utilities.GetPackageNameFromAppName(
                         appName,
                         installedApps);
@@ -494,13 +492,13 @@ namespace HoloLensCommander
                             string.Format("App ({0}) could not be found",
                             appName));
                     }
-
                     await this.deviceMonitor.UninstallApplicationAsync(packageName);
 
                     this.StatusMessage = "Uninstall complete";
 
                     this.deviceMonitorControl.NotifyAppUninstall();
                 }
+
                 catch (Exception e)
                 {
                     this.StatusMessage = string.Format(
@@ -510,6 +508,10 @@ namespace HoloLensCommander
             }
         }
 
+        /// <summary>
+        /// Uninstalls all side-loaded apps on selected devices
+        /// </summary>
+        /// <returns></returns>
         internal async Task UninstallAllAppsAsync()
         {
             if (this.IsConnected && this.IsSelected)
