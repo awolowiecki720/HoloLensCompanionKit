@@ -503,12 +503,15 @@ namespace HoloLensCommander
                 {
                     this.StatusMessage = string.Format(
                         "Failed to uninstall {0} - {1}",
-                        appName,
-                        e.Message);
+                        appName, e.Message);
                 }
             }
         }
 
+        /// <summary>
+        /// Uninstalls all side-loaded apps on selected devices
+        /// </summary>
+        /// <returns></returns>
         internal async Task UninstallAllAppsAsync()
         {
             if (this.IsConnected && this.IsSelected)
@@ -516,11 +519,23 @@ namespace HoloLensCommander
                 try
                 {
                     AppPackages installedApps = await this.deviceMonitor.GetInstalledApplicationsAsync();
-                    await Task.WhenAll(installedApps.Packages.Select(p => this.deviceMonitor.UninstallApplicationAsync(p.FullName)));
+                    foreach (PackageInfo packageInfo in installedApps.Packages)
+                    {
+                        if (packageInfo.IsSideloaded())
+                        {
+                            await this.deviceMonitor.UninstallApplicationAsync(packageInfo.FullName);
+                            this.deviceMonitorControl.NotifyAppUninstall();
+                        }
+                        else
+                        {
+                            continue;
+                        }
+                    }
+                    this.StatusMessage = "Successfully uninstalled all apps";
                 }
                 catch (Exception e)
                 {
-                    this.StatusMessage = string.Format("Failed to uninstall all apps", e.Message);
+                    this.StatusMessage = string.Format("Failed to uninstall all apps. ", e.Message);
                 }
             }
         }

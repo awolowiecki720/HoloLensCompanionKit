@@ -73,7 +73,7 @@
                 x:Name="UninstallAllApps"
                 Content="&#xEA39;"
                 Command="{Binding UninstallAllAppsCommand}"
-                ToolTipService.ToolTip="Uninstall all user apps"
+                ToolTipService.ToolTip="Uninstall all side-loaded apps"
                 FontFamily="Segoe MDL2 Assets" FontSize="24" 
                 Width="50" Height="40" 
                 Canvas.Left="400" Canvas.Top="161"/>
