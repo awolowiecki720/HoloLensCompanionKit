@@ -492,17 +492,17 @@ namespace HoloLensCommander
                             string.Format("App ({0}) could not be found",
                             appName));
                     }
+
                     await this.deviceMonitor.UninstallApplicationAsync(packageName);
 
                     this.StatusMessage = "Uninstall complete";
 
                     this.deviceMonitorControl.NotifyAppUninstall();
                 }
-
                 catch (Exception e)
                 {
                     this.StatusMessage = string.Format(
-                        "Failed to uninstall {0} {1}",
+                        "Failed to uninstall {0} - {1}",
                         appName, e.Message);
                 }
             }
@@ -535,7 +535,7 @@ namespace HoloLensCommander
                 }
                 catch (Exception e)
                 {
-                    this.StatusMessage = string.Format("Failed to uninstall all apps", e.Message);
+                    this.StatusMessage = string.Format("Failed to uninstall all apps. ", e.Message);
                 }
             }
         }
