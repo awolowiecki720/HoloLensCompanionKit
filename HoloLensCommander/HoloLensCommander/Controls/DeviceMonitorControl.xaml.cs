@@ -164,11 +164,6 @@ namespace HoloLensCommander
                 deleteAfterDownload);
         }
 
-        internal async Task WipeCameraRollAsync(StorageFolder parentFolder)
-        {
-
-        }
-
         /// <summary>
         /// Installs an application on this device.
         /// </summary>

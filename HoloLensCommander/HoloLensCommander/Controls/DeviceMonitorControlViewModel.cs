@@ -261,9 +261,24 @@ namespace HoloLensCommander
             }
         }
 
-        internal Task WipeCameraRollAsync()
+        internal async Task WipeCameraRollAsync()
         {
-            throw new NotImplementedException();
+            if (this.IsConnected && this.IsSelected)
+            {
+                try
+                {
+                    MrcFileList fileList = await this.deviceMonitor.GetMixedRealityFileListAsync();
+
+                    foreach (MrcFileInformation fileInfo in fileList.Files)
+                    {
+                        await this.deviceMonitor.DeleteMixedRealityFile(fileInfo.FileName);
+                    }
+                }
+                catch (Exception e)
+                {
+                    this.StatusMessage = string.Format("Unable to delete all camera roll files", e.Message);
+                }
+            }
         }
 
         /// <summary>
