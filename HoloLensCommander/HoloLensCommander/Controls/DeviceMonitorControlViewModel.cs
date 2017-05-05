@@ -261,6 +261,10 @@ namespace HoloLensCommander
             }
         }
 
+        /// <summary>
+        /// Wipes camera roll contents on this device.
+        /// </summary>
+        /// <returns>Task object used for tracking method completion.</returns>
         internal async Task WipeCameraRollAsync()
         {
             if (this.IsConnected && this.IsSelected)

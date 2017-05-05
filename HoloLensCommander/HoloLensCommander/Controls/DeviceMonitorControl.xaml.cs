@@ -279,6 +279,10 @@ namespace HoloLensCommander
             await this.ViewModel.UninstallAllAppsAsync();
         }
 
+        /// <summary>
+        /// Wipes camera roll contents on this device.
+        /// </summary>
+        /// <returns></returns>
         internal async Task WipeCameraRollAsync()
         {
             await this.ViewModel.WipeCameraRollAsync();
