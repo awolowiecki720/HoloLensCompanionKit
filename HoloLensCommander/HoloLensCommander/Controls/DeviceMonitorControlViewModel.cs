@@ -273,6 +273,7 @@ namespace HoloLensCommander
                     {
                         await this.deviceMonitor.DeleteMixedRealityFile(fileInfo.FileName);
                     }
+                    this.StatusMessage = "Camera roll wiped successfully. ";
                 }
                 catch (Exception e)
                 {
