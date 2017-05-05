@@ -277,11 +277,11 @@ namespace HoloLensCommander
                     {
                         await this.deviceMonitor.DeleteMixedRealityFile(fileInfo.FileName);
                     }
-                    this.StatusMessage = "Camera roll wiped successfully. ";
+                    this.StatusMessage = "Camera roll wiped successfully.";
                 }
                 catch (Exception e)
                 {
-                    this.StatusMessage = string.Format("Unable to delete all camera roll files", e.Message);
+                    this.StatusMessage = string.Format("Unable to delete all camera roll files. {0} ", e.Message);
                 }
             }
         }
@@ -556,11 +556,11 @@ namespace HoloLensCommander
                             continue;
                         }
                     }
-                    this.StatusMessage = "Successfully uninstalled all apps";
+                    this.StatusMessage = "Successfully uninstalled all apps.";
                 }
                 catch (Exception e)
                 {
-                    this.StatusMessage = string.Format("Failed to uninstall all apps. ", e.Message);
+                    this.StatusMessage = string.Format("Failed to uninstall all apps. {0} ", e.Message);
                 }
             }
         }
