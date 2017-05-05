@@ -261,6 +261,11 @@ namespace HoloLensCommander
             }
         }
 
+        internal Task WipeCameraRollAsync()
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// Launches an applicaiton on this device.
         /// </summary>

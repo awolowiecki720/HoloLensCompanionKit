@@ -164,8 +164,8 @@
                         IsEnabled="{Binding Path=HaveRegisteredDevices}"
                         HorizontalAlignment="Stretch" VerticalAlignment="Top" 
                         FontSize="20"
-                        Width="142" Height="50"
-                        Canvas.Left="72" Canvas.Top="235"/>
+                        Width="260" Height="50"
+                        Canvas.Left="10" Canvas.Top="235"/>
                 </Canvas>
 
                 <Canvas
@@ -221,7 +221,18 @@
                     Width="280" Height="115" Margin="10,0,0,0">
                     <Border 
                         BorderBrush="Black" BorderThickness="1"
-                        Width="280" Height="105" Canvas.Top="80"/>
+                        Width="280" Height="162" Canvas.Top="80">
+                        <Button
+                            x:Name="wipeCameraRoll"
+                            Content="&#xE74D;"
+                            ToolTipService.ToolTip="Wipe camera roll"
+                            Command="{Binding WipeCameraRollCommand}" 
+                            IsEnabled="{Binding HaveRegisteredDevices}"
+                            HorizontalAlignment="Right" VerticalAlignment="Top" 
+                            Width="260" Height="50" 
+                            FontFamily="Segoe MDL2 Assets" FontSize="20" 
+    Margin="0,101,9,0"/>
+                    </Border>
                     <TextBlock 
                         x:Name="deviceControl"
                         Text="Device Control"

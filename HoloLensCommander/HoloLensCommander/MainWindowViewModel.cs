@@ -285,6 +285,12 @@ namespace HoloLensCommander
                 {
                     this.SelectionFilter = DeviceFilters.HoloLens;
                 });
+
+            this.WipeCameraRollCommand = new Command(
+                (parameter) =>
+                {
+                    this.WipeCameraRoll();
+                });
         }
 
         /// <summary>

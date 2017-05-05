@@ -164,6 +164,11 @@ namespace HoloLensCommander
                 deleteAfterDownload);
         }
 
+        internal async Task WipeCameraRollAsync(StorageFolder parentFolder)
+        {
+
+        }
+
         /// <summary>
         /// Installs an application on this device.
         /// </summary>
@@ -270,9 +275,18 @@ namespace HoloLensCommander
             await this.ViewModel.UninstallAppAsync(appName);
         }
 
+        /// <summary>
+        /// Uninstalls all side loaded applications of this device.
+        /// </summary>
+        /// <returns></returns>
         internal async Task UninstallAllAppsAsync()
         {
             await this.ViewModel.UninstallAllAppsAsync();
+        }
+
+        internal async Task WipeCameraRollAsync()
+        {
+            await this.ViewModel.WipeCameraRollAsync();
         }
     }
 }
