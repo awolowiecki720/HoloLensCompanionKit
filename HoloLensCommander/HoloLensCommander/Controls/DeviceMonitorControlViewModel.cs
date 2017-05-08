@@ -549,7 +549,6 @@ namespace HoloLensCommander
                         if (packageInfo.IsSideloaded())
                         {
                             await this.deviceMonitor.UninstallApplicationAsync(packageInfo.FullName);
-                            this.deviceMonitorControl.NotifyAppUninstall();
                         }
                         else
                         {
@@ -557,6 +556,8 @@ namespace HoloLensCommander
                         }
                     }
                     this.StatusMessage = "Successfully uninstalled all apps.";
+
+                    this.deviceMonitorControl.NotifyAppUninstall();
                 }
                 catch (Exception e)
                 {
