@@ -149,7 +149,7 @@
                     <Button 
                         x:Name="uninstallApp" 
                         Content="Uninstall"
-                        ToolTipService.ToolTip="Uninstalls the selected app on the selected devices"
+                        ToolTipService.ToolTip="Uninstalls the selected store app or sideloaded app on the selected devices"
                         Command="{Binding UninstallAppCommand}"
                         IsEnabled="{Binding Path=HaveRegisteredDevices}"
                         HorizontalAlignment="Stretch" VerticalAlignment="Top" 
@@ -158,8 +158,8 @@
                         Canvas.Left="148" Canvas.Top="163"/>
                     <Button 
                         x:Name="uninstallAllApps" 
-                        Content="Uninstall All"
-                        ToolTipService.ToolTip="Uninstalls all apps on the selected devices"
+                        Content="Remove Sideloaded Apps"
+                        ToolTipService.ToolTip="Uninstalls all sideloaded apps on the selected devices"
                         Command="{Binding UninstallAllAppsCommand}"
                         IsEnabled="{Binding Path=HaveRegisteredDevices}"
                         HorizontalAlignment="Stretch" VerticalAlignment="Top" 
