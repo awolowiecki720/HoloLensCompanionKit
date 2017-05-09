@@ -20,7 +20,6 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="80"/>
             <RowDefinition Height="40"/>
         </Grid.RowDefinitions>
 
@@ -28,7 +27,7 @@
         <ScrollViewer Grid.Column="0" Grid.Row="0" Grid.RowSpan="2"
             VerticalScrollBarVisibility="Auto" VerticalScrollMode="Auto">
             <StackPanel
-                Background="White" Height="965">
+                Background="White" Height="1000">
                 <Canvas
                     x:Name="connectionControls"
                     HorizontalAlignment="Left" VerticalAlignment="Top"
@@ -325,7 +324,7 @@
                 Padding="0"
                 ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollMode="Auto"/>
         </StackPanel>
-        <TextBlock Grid.Row="2" Grid.Column="1"
+        <TextBlock Grid.Row="1" Grid.Column="1"
             x:Name="statusMessage" 
             Text="{Binding Path=StatusMessage}"
             TextWrapping="NoWrap" FontSize="16"
